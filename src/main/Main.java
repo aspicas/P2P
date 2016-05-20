@@ -5,12 +5,15 @@ package main;
  * https://www.programarya.com/Cursos/Java-Avanzado/Sockets
  */
 import java.io.IOException;
-import java.net.*;
+import main.Usuario;
 
 public class Main {
     public static void main (String[] args) throws IOException
     {
-        InetAddress address = InetAddress.getLocalHost();
-        System.out.print(address);
+        Usuario user = new Usuario();
+
+        user.findIP();
+
+        System.out.println(user.getAddress());
     }
 }
