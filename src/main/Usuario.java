@@ -13,12 +13,12 @@ public class Usuario {
     public int puerto = 50000;
     public Socket cs; //Cliente socket
     public ServerSocket ss; //Server socket
-    public int address;
+    public String address;
 
     public Usuario() throws IOException {
         ss = new ServerSocket(puerto); //Crea el socket para el puerto 50000
         cs = new Socket(); //Socket para el cliente
-        address = 0;
+        address = "";
     }
 
     public void findIP() throws IOException {
@@ -28,10 +28,10 @@ public class Usuario {
         Enumeration<InetAddress> a = e.getInetAddresses(); //Encuentra la MAC
         InetAddress addr = a.nextElement(); // la separa de la numeracion y la coloca aparte.
         addr = a.nextElement(); //Seguido de la MAC esta la IP
-        //address = addr.hashCode();
-        address = addr.getHostAddress().hashCode();//*/
+        address = addr.getHostAddress();//*/
 
         /* http://stackoverflow.com/questions/19476872/java-get-local-ip
+        /* https://www.programarya.com/Cursos/Java-Avanzado/Sockets
         for (; n.hasMoreElements();)
         {
             NetworkInterface e = n.nextElement();
@@ -44,7 +44,11 @@ public class Usuario {
         }//*/
     }
 
-    public int getAddress() {
+    public void startServer() throws IOException{
+        ss.accept();
+    }
+
+    public String getAddress() {
         return address;
     }
 }
