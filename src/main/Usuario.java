@@ -6,6 +6,8 @@ import java.util.Enumeration;
 
 /**
  * Created by david on 5/18/16.
+ * https://www.programarya.com/Cursos/Java-Avanzado/Sockets
+ * http://stackoverflow.com/questions/19476872/java-get-local-ip
  */
 
 public class Usuario {
@@ -30,8 +32,7 @@ public class Usuario {
         addr = a.nextElement(); //Seguido de la MAC esta la IP
         address = addr.getHostAddress();//*/
 
-        /* http://stackoverflow.com/questions/19476872/java-get-local-ip
-        /* https://www.programarya.com/Cursos/Java-Avanzado/Sockets
+        /*
         for (; n.hasMoreElements();)
         {
             NetworkInterface e = n.nextElement();

@@ -12,11 +12,15 @@ public class Cliente {
     public Socket client = null;
     public DataOutputStream output = null;
     public DataInputStream input = null;
-    public int id = 0;
 
-    public Cliente(int id) throws IOException {
-        this.id = id;
-        this.client = new Socket("192.168.11.136",2000);
+    public Cliente() throws IOException {
+        this.client = new Socket("localhost",2000);
+        this.input = new DataInputStream(client.getInputStream());
+        this.output = new DataOutputStream(client.getOutputStream());
+    }
+
+    public Cliente(String ip) throws IOException {
+        this.client = new Socket(ip,2000);
         this.input = new DataInputStream(client.getInputStream());
         this.output = new DataOutputStream(client.getOutputStream());
     }

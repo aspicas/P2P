@@ -7,7 +7,7 @@ import java.util.logging.*;
 /**
  * Created by aspicas on 5/20/16.
  */
-public class Servidor{
+public class Servidor extends Thread{
     public int port = 2000;
     public ServerSocket server = null;
     public Socket client = null;
@@ -34,5 +34,10 @@ public class Servidor{
         catch (IOException ex) {
             Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE,null,ex);
         }
+    }
+
+    @Override
+    public void run(){
+        Listening();
     }
 }
