@@ -12,14 +12,9 @@ import java.util.Enumeration;
 
 public class Usuario {
 
-    public int puerto = 50000;
-    public Socket cs; //Cliente socket
-    public ServerSocket ss; //Server socket
     public String address;
 
     public Usuario() throws IOException {
-        ss = new ServerSocket(puerto); //Crea el socket para el puerto 50000
-        cs = new Socket(); //Socket para el cliente
         address = "";
     }
 
@@ -43,10 +38,6 @@ public class Usuario {
                 System.out.println("  " + addr.getHostAddress());
             }
         }//*/
-    }
-
-    public void startServer() throws IOException{
-        ss.accept();
     }
 
     public String getAddress() {

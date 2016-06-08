@@ -12,12 +12,16 @@ public class Main {
     public static void main (String[] args) throws IOException
     {
         /*SERVIDOR*/
-        Servidor serv = new Servidor();
+        /*Servidor serv = new Servidor();
         serv.start();
 
         /*CLIENTE*/
-        Cliente client = new Cliente();
-        client.Send("Hola");
+        /*Cliente client = new Cliente();
+        client.Send("Hola");/**/
+
+        Usuario user = new Usuario();
+        user.findIP();
+        System.out.println(user.getAddress());
 
         /* CLIENTE
         String line;
