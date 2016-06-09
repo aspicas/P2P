@@ -12,7 +12,7 @@ public class Main {
     public static void main (String[] args) throws IOException
     {
         /*SERVIDOR*/
-        /*Servidor serv = new Servidor();
+        Servidor serv = new Servidor();
         serv.start();
 
         /*CLIENTE*/
@@ -21,7 +21,15 @@ public class Main {
 
         Usuario user = new Usuario();
         user.findIP();
-        System.out.println(user.getAddress());
+        String address = user.getAddress();
+        String host = user.getLastOctet(address);
+        String net = user.getThreeOctet(address);
+        for (int ip = Integer.parseInt(host); ip < 254; ip++)
+        {
+            System.out.println(ip);
+            ((Cliente) new Cliente(net+ip)).start();
+        }/**/
+
 
         /* CLIENTE
         String line;

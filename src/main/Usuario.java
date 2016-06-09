@@ -3,6 +3,7 @@ package main;
 import java.io.IOException;
 import java.net.*;
 import java.util.Enumeration;
+import java.util.StringTokenizer;
 
 /**
  * Created by david on 5/18/16.
@@ -43,4 +44,32 @@ public class Usuario {
     public String getAddress() {
         return address;
     }
+
+    public String getLastOctet(String str) {
+        StringTokenizer st = new StringTokenizer(str, ".");
+        // itera mediante el “objeto st” para obtener más tokens de él
+        String token= null;
+        while (st.hasMoreElements()) {
+            token = st.nextElement().toString();
+        }
+        return token;
+    }
+
+    public String getThreeOctet(String str) {
+        StringTokenizer st = new StringTokenizer(str, ".");
+        // itera mediante el “objeto st” para obtener más tokens de él
+        String token= null;
+        String exit = "";
+        while (st.hasMoreElements()) {
+            token = st.nextElement().toString();
+            if (st.hasMoreElements() == false)
+            {
+                break;
+            }
+            exit = exit + token + ".";
+        }
+        return exit;
+    }
+
+
 }
