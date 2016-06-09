@@ -24,10 +24,13 @@ public class Main {
         String address = user.getAddress();
         String host = user.getLastOctet(address);
         String net = user.getThreeOctet(address);
-        for (int ip = Integer.parseInt(host); ip < 254; ip++)
+        for (int ip = Integer.parseInt(host) + 1; ip < 254; ip++)
         {
-            System.out.println(ip);
-            ((Cliente) new Cliente(net+ip)).start();
+            int ipe = ip + 130;
+            System.out.println("ip :"+ ipe);
+            Cliente client = new Cliente(net+ipe);
+            client.start();
+            //((Cliente) new Cliente(net+host)).start();
         }/**/
 
 

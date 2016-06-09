@@ -20,9 +20,15 @@ public class Cliente extends Thread{
     }
 
     public Cliente(String ip) throws IOException {
-        this.client = new Socket(ip,2000);
-        this.input = new DataInputStream(client.getInputStream());
-        this.output = new DataOutputStream(client.getOutputStream());
+        try {
+            this.client = new Socket(ip,2000);
+            this.input = new DataInputStream(client.getInputStream());
+            this.output = new DataOutputStream(client.getOutputStream());
+        }
+        catch (Exception ex){
+            System.out.println("No se encontro el servidor");
+        }
+
     }
 
     public void Send(String msj){
@@ -50,14 +56,20 @@ public class Cliente extends Thread{
             input.close();
             client.close();
         }
-        catch (IOException ex){
+        catch (Exception ex){
             //Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("No se encontro el servidor");
+            System.out.println("No se envio el hello");
         }
     }
 
     @Override
     public void run(){
-        SendHello();
+        try {
+            SendHello();
+        }
+        catch (Exception ex){
+            System.out.println("Fallo hilo");
+        }
+
     }
 }
