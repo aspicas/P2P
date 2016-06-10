@@ -8,7 +8,7 @@ import java.util.logging.*;
  * Created by david on 5/20/16.
  */
 
-public class Cliente extends Thread{
+public class Cliente {
     public Socket client = null;
     public DataOutputStream output = null;
     public DataInputStream input = null;
@@ -44,32 +44,5 @@ public class Cliente extends Thread{
         catch (IOException ex){
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    public void SendHello(){
-        String respuesta;
-        try {
-            output.writeUTF("Hola");
-            respuesta = input.readUTF();
-            System.out.println("La respuesta es: " + respuesta);
-            output.close();
-            input.close();
-            client.close();
-        }
-        catch (Exception ex){
-            //Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("No se envio el hello");
-        }
-    }
-
-    @Override
-    public void run(){
-        try {
-            SendHello();
-        }
-        catch (Exception ex){
-            System.out.println("Fallo hilo");
-        }
-
     }
 }

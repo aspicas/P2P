@@ -5,34 +5,13 @@ package main;
  * https://www.programarya.com/Cursos/Java-Avanzado/Sockets
  */
 import java.io.IOException;
-import java.net.Socket;
-import java.util.*;
 
 public class Main {
     public static void main (String[] args) throws IOException
     {
         /*SERVIDOR*/
         Servidor serv = new Servidor();
-        serv.start();
-
-        /*CLIENTE*/
-        /*Cliente client = new Cliente();
-        client.Send("Hola");/**/
-
-        Usuario user = new Usuario();
-        user.findIP();
-        String address = user.getAddress();
-        String host = user.getLastOctet(address);
-        String net = user.getThreeOctet(address);
-        for (int ip = Integer.parseInt(host) + 1; ip < 254; ip++)
-        {
-            int ipe = ip + 130;
-            System.out.println("ip :"+ ipe);
-            Cliente client = new Cliente(net+ipe);
-            client.start();
-            //((Cliente) new Cliente(net+host)).start();
-        }/**/
-
+        serv.start();/**/
 
         /* CLIENTE
         String line;
@@ -48,12 +27,5 @@ public class Main {
                 break;
             }
         }*/
-
-        /*
-        Usuario user = new Usuario();
-
-        user.findIP();
-
-        System.out.println(user.getAddress());*/
     }
 }
