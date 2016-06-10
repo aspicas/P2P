@@ -79,7 +79,7 @@ public class Cliente {
                 this.sp[1] = respuesta; //Predecesor
             }
             for (String i:sp) {
-                System.out.println("cliente : "+i);
+                System.out.println("clientes : "+i);
             }
         }
         catch (Exception ex){
