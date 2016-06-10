@@ -59,6 +59,7 @@ public class Hilo extends Thread {
             //System.out.println("La accion es: "+accion);
             output.writeUTF("He leido tu accion");
             String[] comando = definirAccion(accion);
+            System.out.println(comando[0] + comando [1]);
             if (comando[0] == "predecesor"){
                 this.sp[0] = comando[1];
                 this.sp[1] = comando[2];

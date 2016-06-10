@@ -72,6 +72,7 @@ public class Cliente {
 
             output.writeUTF(msj); //El msj sera el predecesor mas la ip ej: predecesor 192.168.11.host
             respuesta = input.readUTF();
+            System.out.println(respuesta);
             if (sp == null){
                 this.sp = new String[2];
                 this.sp[0] = respuesta; //Sucesor
