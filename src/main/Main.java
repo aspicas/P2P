@@ -5,6 +5,7 @@ package main;
  * https://www.programarya.com/Cursos/Java-Avanzado/Sockets
  */
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
     public static void main (String[] args) throws IOException
@@ -13,19 +14,17 @@ public class Main {
         Servidor serv = new Servidor();
         serv.start();/**/
 
-        /* CLIENTE
+        /* CLIENTE*/
         String line;
         Scanner sc = new Scanner(System.in);
-        int i = 0;
         while (true){
-            Cliente client = new Cliente("192.168.11.136");
+            Cliente client = new Cliente("192.168.11.1");
             line = sc.next();
             client.Send(line);
-            i++;
             if (line.equals("EXIT"))
             {
                 break;
             }
-        }*/
+        }/**/
     }
 }
