@@ -12,6 +12,7 @@ public class Servidor extends Thread{
     public ServerSocket server = null;
     public Socket client = null;
     public int idSession;
+    public String[] sp = null;
 
     public Servidor() {
         try {

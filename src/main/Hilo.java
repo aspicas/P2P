@@ -2,6 +2,7 @@ package main;
 
 import java.io.*;
 import java.net.*;
+import java.util.StringTokenizer;
 import java.util.logging.*;
 
 /**
@@ -14,6 +15,7 @@ public class Hilo extends Thread {
     private DataInputStream input;
     private DataOutputStream output;
     private int idSession;
+    public String[] sp = null;
 
     public Hilo (Socket socket, int id){
         this.socket = socket;
@@ -36,13 +38,34 @@ public class Hilo extends Thread {
         }
     }
 
+    public String[] definirAccion(String str){
+        StringTokenizer st = new StringTokenizer(str, " ");
+        // itera mediante el “objeto st” para obtener más tokens de él
+        String[] token = new String[2];
+        int i = 0;
+        while (st.hasMoreElements()) {
+            token[i] = st.nextElement().toString();
+            i++;
+        }
+        return token;
+    }
+
     @Override
     public void run(){
         String accion = "";
+        this.sp = new String[2];
         try {
             accion = input.readUTF();
-            System.out.println("La accion es: "+accion);
+            //System.out.println("La accion es: "+accion);
             output.writeUTF("He leido tu accion");
+            String[] comando = definirAccion(accion);
+            if (comando[0] == "predecesor"){
+                this.sp[0] = comando[1];
+                this.sp[1] = comando[2];
+            }
+            for (String i: sp) {
+                System.out.println("hilo: "+i);
+            }
         }
         catch (IOException ex){
             Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE,null,ex);

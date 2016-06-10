@@ -17,9 +17,9 @@ public class Main {
         /* CLIENTE*/
         String line;
         Scanner sc = new Scanner(System.in);
-        while (true){
+        while (sc.hasNextLine()){
             Cliente client = new Cliente("192.168.11.1");
-            line = sc.next();
+            line = sc.nextLine();
             client.Send(line);
             if (line.equals("EXIT"))
             {
