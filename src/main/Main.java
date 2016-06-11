@@ -24,15 +24,12 @@ public class Main {
         /**/
 
         /* CLIENTE*/
-        String line;
+        String line = "exit";
         Scanner sc = new Scanner(System.in);
-        while (sc.hasNextLine()){
-            line = sc.nextLine();
+        do {
+            line = sc.nextLine().toUpperCase();
             client.Send(line);
-            if (line.equals("EXIT"))
-            {
-                break;
-            }
-        }/**/
+            System.out.println(line);
+        } while (!line.equals("EXIT"));/**/
     }
 }
