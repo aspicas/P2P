@@ -15,7 +15,14 @@ public class Main {
         serv.start();/**/
 
         /* CLIENTE*/
-        String line;
+        Cliente client = new Cliente("192.168.11.1");
+        Usuario user = new Usuario();
+        user.findIP();
+        client.definePredecesor("predecesor "+user.getLastOctet(user.getAddress()));
+        /**/
+
+        /* CLIENTE*/
+        /*String line;
         Scanner sc = new Scanner(System.in);
         while (sc.hasNextLine()){
             Cliente client = new Cliente("192.168.11.1");

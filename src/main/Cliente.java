@@ -15,12 +15,6 @@ public class Cliente {
     public DataInputStream input = null;
     public String[] sp = null;
 
-    public Cliente() throws IOException {
-        this.client = new Socket("localhost",2000);
-        this.input = new DataInputStream(client.getInputStream());
-        this.output = new DataOutputStream(client.getOutputStream());
-    }
-
     public Cliente(String ip) throws IOException {
         try {
             this.client = new Socket(ip,2000);
@@ -33,12 +27,16 @@ public class Cliente {
 
     }
 
+    public String[] getSp() {
+        return sp;
+    }
+
     public void Send(String msj){
         String respuesta;
         try {
             output.writeUTF(msj);
             respuesta = input.readUTF();
-            //System.out.println("La respuesta es: " + respuesta);
+            System.out.println("La respuesta es: " + respuesta);
             output.close();
             input.close();
             client.close();
@@ -48,7 +46,7 @@ public class Cliente {
         }
     }
 
-    public String[] definirAccion(String str){
+    public String[] definerAction(String str){
         StringTokenizer st = new StringTokenizer(str, " ");
         // itera mediante el “objeto st” para obtener más tokens de él
         String[] token = new String[2];
@@ -60,30 +58,21 @@ public class Cliente {
         return token;
     }
 
-    public void desconectar() throws Exception{
-        this.input.close();
-        this.output.close();
-        this.client.close();
-    }
-
     public void definePredecesor(String msj){
-        String respuesta;
         try{
-
             output.writeUTF(msj); //El msj sera el predecesor mas la ip ej: predecesor 192.168.11.host
-            respuesta = input.readUTF();
-            System.out.println(respuesta);
-            if (sp == null){
-                this.sp = new String[2];
-                this.sp[0] = respuesta; //Sucesor
-                this.sp[1] = respuesta; //Predecesor
+            String respuesta = input.readUTF();
+            String[] comando = definerAction(respuesta);
+            if (comando[0].equals("predecesor")){
+                sp = new String[2];
+                sp[0] = comando[1]; //Predecesor
+                sp[1] = comando[1]; //Sucesor
             }
-            for (String i:sp) {
-                System.out.println("clientes : "+i);
-            }
+            input.close();
+            output.close();
         }
         catch (Exception ex){
-            System.out.println(ex);
+            System.out.println(ex+" definirPredecesor");
         }
     }
 }
