@@ -19,13 +19,14 @@ public class Main {
         Usuario user = new Usuario();
         user.findIP();
         client.definePredecesor("predecesor "+user.getLastOctet(user.getAddress()));
+        String[] s = client.getSp();
+        System.out.println(s[0]);
         /**/
 
         /* CLIENTE*/
-        /*String line;
+        String line;
         Scanner sc = new Scanner(System.in);
         while (sc.hasNextLine()){
-            Cliente client = new Cliente("192.168.11.1");
             line = sc.nextLine();
             client.Send(line);
             if (line.equals("EXIT"))

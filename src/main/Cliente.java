@@ -32,14 +32,10 @@ public class Cliente {
     }
 
     public void Send(String msj){
-        String respuesta;
         try {
             output.writeUTF(msj);
-            respuesta = input.readUTF();
+            String respuesta = input.readUTF();
             System.out.println("La respuesta es: " + respuesta);
-            output.close();
-            input.close();
-            client.close();
         }
         catch (IOException ex){
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,6 +54,15 @@ public class Cliente {
         return token;
     }
 
+    public void desconectar(){
+        try {
+            client.close();
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+    }
+
     public void definePredecesor(String msj){
         try{
             output.writeUTF(msj); //El msj sera el predecesor mas la ip ej: predecesor 192.168.11.host
@@ -68,8 +73,6 @@ public class Cliente {
                 sp[0] = comando[1]; //Predecesor
                 sp[1] = comando[1]; //Sucesor
             }
-            input.close();
-            output.close();
         }
         catch (Exception ex){
             System.out.println(ex+" definirPredecesor");
