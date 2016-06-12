@@ -58,8 +58,8 @@ public class Hilo extends Thread{
     @Override
     public void run(){
         try {
-            boolean a = true;
-            while (a) {
+            /*boolean a = true;
+            while (a) {*/
                 String respuesta = input.readUTF();
                 String[] comando = definerAction(respuesta);
                 if (comando[0].equals("predecesor") && sp == null) {
@@ -69,13 +69,14 @@ public class Hilo extends Thread{
                     output.writeUTF("predecesor " + predecesor);
                 }
                 System.out.println(respuesta);
-                output.writeUTF("He recibido tu mensaje");
-                if (respuesta == "EXIT")
+                //output.writeUTF("He recibido tu mensaje");
+                /*if (respuesta == "EXIT")
                 {
                     a = false;
                 }
-            }
+            }/**/
             desconectar();
+            System.out.println(socket.isClosed());
         }
         catch (IOException ex){
             Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE,null,ex);
