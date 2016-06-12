@@ -24,7 +24,7 @@ public class Main {
         /**/
 
         /* CLIENTE*/
-        String line = "exit";
+        /*String line = "exit";
         Scanner sc = new Scanner(System.in);
         do {
             line = sc.nextLine().toUpperCase();
