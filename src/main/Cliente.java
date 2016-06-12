@@ -73,6 +73,7 @@ public class Cliente {
                 sp[0] = comando[1]; //Predecesor
                 sp[1] = comando[1]; //Sucesor
             }
+            System.out.println(client.isClosed());
         }
         catch (Exception ex){
             System.out.println(ex+" definirPredecesor");
