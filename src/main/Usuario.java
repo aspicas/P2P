@@ -14,6 +14,8 @@ import java.util.StringTokenizer;
 public class Usuario {
 
     public String address;
+    private String downloadPath;
+    private String uploadPath;
 
     public Usuario() throws IOException {
         address = "";
@@ -69,6 +71,23 @@ public class Usuario {
             exit = exit + token + ".";
         }
         return exit;
+    }
+
+
+    public String getDownloadPath() {
+        return downloadPath;
+    }
+
+    public void setDownloadPath(String downloadPath) {
+        this.downloadPath = downloadPath;
+    }
+
+    public String getUploadPath() {
+        return uploadPath;
+    }
+
+    public void setUploadPath(String uploadPath) {
+        this.uploadPath = uploadPath;
     }
 
 
