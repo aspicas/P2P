@@ -10,6 +10,11 @@ import java.util.logging.*;
 /**
  * Created by aspicas on 5/20/16.
  */
+
+/**
+ * Este es el servidor que se mantiene constantemente escuchando por peticiones y se encarga de crear nuevos Hilos para
+ * el manejo de cada una
+ */
 public class Servidor extends Thread{
     public int port = 2000;
     public ServerSocket server = null;
@@ -27,6 +32,9 @@ public class Servidor extends Thread{
         }
     }
 
+    /**
+     * Funcion de escucha del servidor
+     */
     public void Listening(){
         try {
             while (true){

@@ -14,6 +14,10 @@ import java.util.logging.*;
  * Created by aspicas on 5/20/16.
  */
 
+
+/**
+ * Clase para el manejo de Hilos
+ */
 public class Hilo extends Thread {
 
     private Socket socket;
@@ -23,6 +27,11 @@ public class Hilo extends Thread {
     public String[] sp = null;
     public String path;
 
+    /**
+     * Constructor de la clase
+     * @param socket
+     * @param id
+     */
     public Hilo (Socket socket, int id){
         String home = System.getProperty("user.home");
         Path dwPath = Paths.get(home + "/Downloads");
@@ -47,6 +56,9 @@ public class Hilo extends Thread {
         }
     }
 
+    /**
+     * Funcion para la desconexion del socket
+     */
     public void desconectar(){
         try {
             socket.close();
@@ -56,6 +68,11 @@ public class Hilo extends Thread {
         }
     }
 
+    /**
+     * Funcion para separar el mensaje recibido en diferentes palabras
+     * @param str
+     * @return
+     */
     public List<String> definirAccion(String str){
         StringTokenizer st = new StringTokenizer(str, " ");
         // itera mediante el “objeto st” para obtener más tokens de él
@@ -68,6 +85,10 @@ public class Hilo extends Thread {
         return Arrays.asList(token);
     }
 
+    /**
+     * Funcion para el listado de archivos del directorio definido para compartir recursos.
+     * @param folder
+     */
     public void listFilesForFolder(File folder) {
         for (File fileEntry : folder.listFiles()) {
             if (fileEntry.isDirectory()) {
@@ -85,6 +106,9 @@ public class Hilo extends Thread {
 
     public void setPath (String path) { this.path = path; }
 
+    /**
+     * Funcion donde se identifica el comando recibido y se realizan las acciones pertinentes
+     */
     @Override
     public void run(){
         String accion = "";

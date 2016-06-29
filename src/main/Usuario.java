@@ -21,6 +21,10 @@ public class Usuario {
         address = "";
     }
 
+    /**
+     * Funcion para obtener la direccion IP del nodo
+     * @throws IOException
+     */
     public void findIP() throws IOException {
         Enumeration<NetworkInterface> n = NetworkInterface.getNetworkInterfaces(); //Encuentra interfaz
 
@@ -48,6 +52,11 @@ public class Usuario {
         return address;
     }
 
+    /**
+     * Funcion para obtener el ultimo octeto de la direccion IP que recibe
+     * @param str direccion IP de tipo String
+     * @return
+     */
     public String getLastOctet(String str) {
         StringTokenizer st = new StringTokenizer(str, ".");
         // itera mediante el “objeto st” para obtener más tokens de él
@@ -58,6 +67,11 @@ public class Usuario {
         return token;
     }
 
+    /**
+     * Funcion para obtener los primeros 3 octetos de la direccion IP
+     * @param str direccion IP de tipo String
+     * @return
+     */
     public String getThreeOctet(String str) {
         StringTokenizer st = new StringTokenizer(str, ".");
         // itera mediante el “objeto st” para obtener más tokens de él

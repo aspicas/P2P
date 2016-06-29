@@ -15,6 +15,11 @@ public class Cliente {
     public DataInputStream input = null;
     public String[] sp = null;
 
+    /**
+     * Constructor de la clase
+     * @param ip
+     * @throws IOException
+     */
     public Cliente(String ip) throws IOException {
         try {
             this.client = new Socket(ip,2000);
@@ -31,6 +36,10 @@ public class Cliente {
         return sp;
     }
 
+    /**
+     * Funcion para el envio de mensajes
+     * @param msj
+     */
     public void Send(String msj){
         try {
             output.writeUTF(msj);
@@ -42,6 +51,11 @@ public class Cliente {
         }
     }
 
+    /**
+     * Funcion para separar n String en un arreglo de palabras.
+     * @param str
+     * @return
+     */
     public String[] definerAction(String str){
         StringTokenizer st = new StringTokenizer(str, " ");
         // itera mediante el “objeto st” para obtener más tokens de él
@@ -54,6 +68,9 @@ public class Cliente {
         return token;
     }
 
+    /**
+     * Funcion para cerrar la conexion del Socket
+     */
     public void desconectar(){
         try {
             client.close();
@@ -63,6 +80,10 @@ public class Cliente {
         }
     }
 
+    /**
+     * Funcion para definir el predecesor del nodo en el anillo
+     * @param msj
+     */
     public void definePredecesor(String msj){
         try{
             output.writeUTF(msj); //El msj sera el predecesor mas la ip ej: predecesor 192.168.11.host

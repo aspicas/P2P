@@ -25,6 +25,11 @@ public class Sender extends Thread{
     public DataInputStream input = null;
     public String file;
 
+    /**
+     * Constructor de la clase
+     * @param file
+     */
+
     public Sender(String file) {
         try {
             this.server = new ServerSocket(port);
@@ -38,6 +43,9 @@ public class Sender extends Thread{
         }
     }
 
+    /**
+     * Funcion de escucha del Socket
+     */
     public void Listening(){
         try {
             while (true){
@@ -50,6 +58,11 @@ public class Sender extends Thread{
             Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE,null,ex);
         }
     }
+
+    /**
+     * Funcion para el envio de un recurso a traves del OutputStream del Socket
+     * @throws IOException
+     */
 
     public void sendFile() throws IOException {
         FileInputStream fis;
@@ -77,13 +90,21 @@ public class Sender extends Thread{
         }
     }
 
+    /**
+     * Funcion para retornar el tamano del recurso, ya que el tamano es necesario para la creacion del ByteArray
+     * en que se guardara la data transmitida.
+     * @return
+     */
+
     public int sendFileSize () {
         File myFile = new File (this.file);
         byte [] mybytearray  = new byte [(int)myFile.length()];
         return mybytearray.length;
     }
 
-
+    /**
+     * Funcion para mantener el Socket escuchando por una nueva peticion.
+     */
     @Override
     public void run(){
         Listening();

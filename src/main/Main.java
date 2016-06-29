@@ -10,10 +10,12 @@ import java.util.Scanner;
 public class Main {
     public static void main (String[] args) throws IOException
     {
+        //Inicio del Servidor
         /*SERVIDOR*/
         Servidor serv = new Servidor();
         serv.start();/**/
 
+        //Inicio del Cliente
         /* CLIENTE*/
         Cliente client = new Cliente("192.168.11.1");
         Usuario user = new Usuario();

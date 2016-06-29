@@ -19,6 +19,11 @@ public class Receiver extends Thread{
     public int idSession;
     public String file;
 
+
+    /**
+     * Constructor de la clase
+     * @param file
+     */
     public Receiver(String file) {
         this.file = file;
         try {
@@ -28,7 +33,10 @@ public class Receiver extends Thread{
         }
     }
 
-
+    /**
+     * Funcion para recibir la data transmitida. Previamente se necesita saber el tamano del archivo
+     * @throws IOException
+     */
     public void receiveFile () throws IOException {
         BufferedOutputStream bos = null;
         FileOutputStream fos = null;
