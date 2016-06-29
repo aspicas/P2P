@@ -2,6 +2,11 @@ package main;
 
 import java.io.*;
 import java.net.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.*;
 
@@ -16,8 +21,21 @@ public class Hilo extends Thread {
     private DataOutputStream output;
     private int idSession;
     public String[] sp = null;
+    public String path;
 
     public Hilo (Socket socket, int id){
+        String home = System.getProperty("user.home");
+        Path dwPath = Paths.get(home + "/Downloads");
+        if (Files.exists(dwPath)) setPath(home + "/Downloads");
+        else {
+            try {
+                new File(home + "/Downloads").mkdirs();
+                setPath(home + "/Downloads");
+            }
+            catch (SecurityException se) {
+                Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE, "No existe ni se pudo crear el directorio Downloads.");
+            }
+        }
         this.socket = socket;
         this.idSession = id;
         try {
@@ -38,32 +56,64 @@ public class Hilo extends Thread {
         }
     }
 
-    public String[] definirAccion(String str){
+    public List<String> definirAccion(String str){
         StringTokenizer st = new StringTokenizer(str, " ");
         // itera mediante el “objeto st” para obtener más tokens de él
-        String[] token = new String[2];
+        String[] token = new String[st.countTokens()];
         int i = 0;
         while (st.hasMoreElements()) {
             token[i] = st.nextElement().toString();
             i++;
         }
-        return token;
+        return Arrays.asList(token);
     }
+
+    public void listFilesForFolder(File folder) {
+        for (File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                listFilesForFolder(fileEntry);
+            } else {
+                try {
+                    output.writeUTF(fileEntry.getName());
+                }
+                catch (Exception e) {
+
+                }
+            }
+        }
+    }
+
+    public void setPath (String path) { this.path = path; }
 
     @Override
     public void run(){
         String accion = "";
-        this.sp = new String[2];
+        List<String> sp = definirAccion(accion);
         try {
             accion = input.readUTF();
             //System.out.println("La accion es: "+accion);
             output.writeUTF("He leido tu accion");
-            String[] comando = definirAccion(accion);
-            System.out.println(comando[0] + comando [1]);
-            if (comando[0] == "predecesor"){
-                this.sp[0] = comando[1];
-                this.sp[1] = comando[2];
+            List<String> comando = definirAccion(accion);
+            System.out.println(comando.get(0) + comando.get(1));
+            switch (comando.get(0)) {
+                case "PREDECESOR":
+                    this.sp[0] = comando.get(1);
+                    this.sp[1] = comando.get(2);
+                    break;
+                case "BUSCAR_RECURSO":
+                    break;
+                case "ESTADO_SOLICITUDES":
+                    break;
+                case "RECURSOS_OFRECIDOS":
+                    File directory = new File(this.path);
+                    listFilesForFolder(directory);
+                    break;
+                case "ESTADO_RESPUESTAS":
+                    break;
+                case "NUM_DESCARGAS":
+                    break;
             }
+
             for (String i: sp) {
                 System.out.println("hilo: "+i);
             }

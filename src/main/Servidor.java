@@ -16,21 +16,8 @@ public class Servidor extends Thread{
     public Socket client = null;
     public int idSession;
     public String[] sp = null;
-    public String path;
 
     public Servidor() {
-        String home = System.getProperty("user.home");
-        Path dwPath = Paths.get(home + "/Downloads");
-        if (Files.exists(dwPath)) setPath(home + "/Downloads");
-        else {
-            try {
-                new File(home + "/Downloads").mkdirs();
-                setPath(home + "/Downloads");
-            }
-            catch (SecurityException se) {
-                Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE, "No existe ni se pudo crear el directorio Downloads.");
-            }
-        }
         try {
             this.server = new ServerSocket(port);
             this.idSession = 0;
@@ -57,6 +44,4 @@ public class Servidor extends Thread{
     public void run(){
         Listening();
     }
-
-    public void setPath (String path) { this.path = path; }
 }
