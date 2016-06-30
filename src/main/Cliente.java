@@ -80,10 +80,12 @@ public class Cliente {
      */
     public void definePredecesor(String msj){
         try{
+            System.out.println(msj);
             output.writeUTF(msj); //El msj sera el predecesor mas la ip ej: predecesor 192.168.11.host
             String respuesta = input.readUTF();
+            System.out.println(respuesta);
             String[] comando = definerAction(respuesta);
-            if (comando[0].equals("predecesor")){
+            if (comando[0].equals("PREDECESOR")){
                 Main.predecesor = comando[1];
             }
             String salida = input.readUTF();
