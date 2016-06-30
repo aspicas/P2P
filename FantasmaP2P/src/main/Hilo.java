@@ -3,10 +3,7 @@ package main;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.net.Socket;
-import java.util.Enumeration;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,16 +15,12 @@ public class Hilo extends Thread{
     private Socket socket;
     private DataInputStream input;
     private DataOutputStream output;
-    public String[] sp;
-    public String predecesor;
 
-    public Hilo (Socket socket, String predecesor){
+    public Hilo (Socket socket){
         this.socket = socket;
         try {
             this.input = new DataInputStream(socket.getInputStream());
             this.output = new DataOutputStream(socket.getOutputStream());
-            this.predecesor = predecesor;
-            this.sp = null;
         }
         catch (IOException ex){
             Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE,null,ex);
@@ -58,25 +51,20 @@ public class Hilo extends Thread{
     @Override
     public void run(){
         try {
-            /*boolean a = true;
-            while (a) {*/
-                String respuesta = input.readUTF();
-                String[] comando = definerAction(respuesta);
-                if (comando[0].equals("predecesor") && sp == null) {
-                    sp = new String[2];
-                    sp[0] = comando[1]; //Predecesor
-                    sp[1] = comando[1]; //Sucesor
-                    output.writeUTF("predecesor " + predecesor);
-                }
-                System.out.println(respuesta);
-                //output.writeUTF("He recibido tu mensaje");
-                /*if (respuesta == "EXIT")
-                {
-                    a = false;
-                }
-            }/**/
-            desconectar();
-            System.out.println(socket.isClosed());
+            String respuesta = input.readUTF();
+            String[] comando = definerAction(respuesta);
+            //Primero en conectarse
+            if (comando[0].equals("PREDECESOR") && Main.ultConect.equals("cero")){
+                output.writeUTF("PREDECESOR " + Servidor.address);
+                Main.ultConect = comando[1];
+                output.writeUTF("listo");
+            }
+            //Para los otros nodos
+            else if (comando[0].equals("PREDECESOR") && !Main.ultConect.equals(comando[1])) {
+                output.writeUTF("PREDECESOR " + Main.ultConect);
+                Main.ultConect = comando[1];
+                output.writeUTF("listo");
+            }
         }
         catch (IOException ex){
             Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE,null,ex);

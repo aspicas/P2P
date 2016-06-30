@@ -13,7 +13,6 @@ public class Cliente {
     public Socket client = null;
     public DataOutputStream output = null;
     public DataInputStream input = null;
-    public String[] sp = null;
 
     /**
      * Constructor de la clase
@@ -31,11 +30,6 @@ public class Cliente {
         }
 
     }
-
-    public String[] getSp() {
-        return sp;
-    }
-
     /**
      * Funcion para el envio de mensajes
      * @param msj
@@ -90,11 +84,12 @@ public class Cliente {
             String respuesta = input.readUTF();
             String[] comando = definerAction(respuesta);
             if (comando[0].equals("predecesor")){
-                sp = new String[2];
-                sp[0] = comando[1]; //Predecesor
-                sp[1] = comando[1]; //Sucesor
+                Main.predecesor = comando[1];
             }
-            System.out.println(client.isClosed());
+            String salida = input.readUTF();
+            if (salida.equals("listo")){
+                System.out.println("Proceso terminado");
+            }
         }
         catch (Exception ex){
             System.out.println(ex+" definirPredecesor");

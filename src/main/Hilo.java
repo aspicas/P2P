@@ -119,11 +119,7 @@ public class Hilo extends Thread {
             output.writeUTF("He leido tu accion");
             List<String> comando = definirAccion(accion);
             System.out.println(comando.get(0) + comando.get(1));
-            switch (comando.get(0)) {
-                case "PREDECESOR":
-                    this.sp[0] = comando.get(1);
-                    this.sp[1] = comando.get(2);
-                    break;
+            switch (comando.get(0).toUpperCase()) {
                 case "BUSCAR_RECURSO":
                     break;
                 case "ESTADO_SOLICITUDES":

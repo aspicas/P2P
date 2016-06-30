@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
+
+    public static String predecesor = "cero";
+
     public static void main (String[] args) throws IOException
     {
         //Inicio del Servidor
@@ -17,12 +20,11 @@ public class Main {
 
         //Inicio del Cliente
         /* CLIENTE*/
-        Cliente client = new Cliente("192.168.11.1");
+        Cliente client = new Cliente("192.168.1.128");
         Usuario user = new Usuario();
         user.findIP();
-        client.definePredecesor("predecesor "+user.getLastOctet(user.getAddress()));
-        String[] s = client.getSp();
-        System.out.println(s[0]);
+        client.definePredecesor("PREDECESOR "+user.getLastOctet(user.getAddress()));
+        System.out.println(predecesor);
         /**/
 
         /* CLIENTE*/
