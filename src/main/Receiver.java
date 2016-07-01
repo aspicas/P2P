@@ -24,45 +24,15 @@ public class Receiver extends Thread{
      * Constructor de la clase
      * @param file
      */
-    public Receiver(String file) {
+    public Receiver(String ip, String file) {
         this.file = file;
         try {
-            this.socket = new Socket("127.0.0.1", 3000);
+            this.socket = new Socket(ip, 3000);
+            ((HiloR) new HiloR(this.socket, file)).start();
         } catch (IOException ex) {
-            Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE,null,ex);
+            Logger.getLogger(HiloR.class.getName()).log(Level.SEVERE,null,ex);
         }
     }
-
-    /**
-     * Funcion para recibir la data transmitida. Previamente se necesita saber el tamano del archivo
-     * @throws IOException
-     */
-    public void receiveFile () throws IOException {
-        BufferedOutputStream bos = null;
-        FileOutputStream fos = null;
-        try {
-            byte[] mybytearray = new byte[1024];
-            InputStream is = socket.getInputStream();
-            fos = new FileOutputStream(this.file);
-            bos = new BufferedOutputStream(fos);
-            int bytesRead = is.read(mybytearray, 0, mybytearray.length);
-            int current = bytesRead;
-            do {
-                bytesRead =
-                        is.read(mybytearray, current, (mybytearray.length - current));
-                if (bytesRead >= 0) current += bytesRead;
-            } while (bytesRead > -1);
-
-            bos.write(mybytearray, 0, bytesRead);
-            bos.flush();
-        }
-        finally {
-            if (fos != null) fos.close();
-            if (bos != null) bos.close();
-            if (socket != null) socket.close();
-        }
-    }
-
 
     @Override
     public void run() {
