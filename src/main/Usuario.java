@@ -14,25 +14,18 @@ import java.util.StringTokenizer;
 public class Usuario {
 
     public String address;
-    private String downloadPath;
-    private String uploadPath;
 
     public Usuario() throws IOException {
         address = "";
     }
 
-    /**
-     * Funcion para obtener la direccion IP del nodo
-     * @throws IOException
-     */
     public void findIP() throws IOException {
         Enumeration<NetworkInterface> n = NetworkInterface.getNetworkInterfaces(); //Encuentra interfaz
 
-        /**/
-        NetworkInterface e = n.nextElement(); // la separa de la numeracion y la coloca aparte.
+        /**/NetworkInterface e = n.nextElement(); // la separa de la numeracion y la coloca aparte.
         Enumeration<InetAddress> a = e.getInetAddresses(); //Encuentra la MAC
         InetAddress addr = a.nextElement(); // la separa de la numeracion y la coloca aparte.
-        if (a.hasMoreElements()) addr = a.nextElement(); //Seguido de la MAC esta la IP
+        addr = a.nextElement(); //Seguido de la MAC esta la IP
         address = addr.getHostAddress();//*/
 
         /*
@@ -52,34 +45,25 @@ public class Usuario {
         return address;
     }
 
-    /**
-     * Funcion para obtener el ultimo octeto de la direccion IP que recibe
-     * @param str direccion IP de tipo String
-     * @return
-     */
     public String getLastOctet(String str) {
         StringTokenizer st = new StringTokenizer(str, ".");
         // itera mediante el “objeto st” para obtener más tokens de él
-        String token = null;
+        String token= null;
         while (st.hasMoreElements()) {
             token = st.nextElement().toString();
         }
         return token;
     }
 
-    /**
-     * Funcion para obtener los primeros 3 octetos de la direccion IP
-     * @param str direccion IP de tipo String
-     * @return
-     */
     public String getThreeOctet(String str) {
         StringTokenizer st = new StringTokenizer(str, ".");
         // itera mediante el “objeto st” para obtener más tokens de él
-        String token = null;
+        String token= null;
         String exit = "";
         while (st.hasMoreElements()) {
             token = st.nextElement().toString();
-            if (st.hasMoreElements() == false) {
+            if (st.hasMoreElements() == false)
+            {
                 break;
             }
             exit = exit + token + ".";

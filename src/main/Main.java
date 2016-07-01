@@ -30,27 +30,6 @@ public class Main {
         Servidor serv = new Servidor();
         serv.start();/**/
 
-        /* Buscar el archivo de estadisticas*/
-        try {
-
-            Object obj = parser.parse(new FileReader(home + "/Downloads/p2p.json"));
-            JSONObject jsonObject = (JSONObject) obj;
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            JSONObject obj = new JSONObject();
-            obj.put("cantdescargas", new Integer (0));
-            JSONArray list = new JSONArray();
-            obj.put("descargas", list);
-            FileWriter file = new FileWriter(home + "/Downloads/p2p.json");
-            file.write(obj.toJSONString());
-            file.flush();
-            file.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
         //Inicio del Cliente
         /* CLIENTE*/
@@ -79,5 +58,27 @@ public class Main {
         } while (!line.equals("EXIT"));/**/
         Cliente cliente = new Cliente(user.getThreeOctet(user.getAddress()) + predecesor);
         cliente.definePredecesor("desconectar " + predecesor);/**/
+
+        /* Buscar el archivo de estadisticas*/
+        try {
+
+            Object obj = parser.parse(new FileReader(home + "/Downloads/p2p.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            JSONObject obj = new JSONObject();
+            obj.put("cantdescargas", new Integer (0));
+            JSONArray list = new JSONArray();
+            obj.put("descargas", list);
+            FileWriter file = new FileWriter(home + "/Downloads/p2p.json");
+            file.write(obj.toJSONString());
+            file.flush();
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
