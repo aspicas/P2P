@@ -4,6 +4,10 @@ import java.io.*;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * Created by gbsojo on 7/1/16.
@@ -13,9 +17,11 @@ public class HiloR extends Thread {
     public DataInputStream input;
     public DataOutputStream output;
     public String file;
+    public String home;
 
     public HiloR (Socket socket, String file)
     {
+        this.home = System.getProperty("user.home");
         this.file = file;
         this.socket = socket;
         try {
@@ -40,6 +46,7 @@ public class HiloR extends Thread {
         try {
             output.writeUTF(file);
             receiveFile();
+            addDownload();
         }
         catch (IOException ex){
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,7 +59,7 @@ public class HiloR extends Thread {
         try {
             byte[] mybytearray = new byte[1024];
             InputStream is = socket.getInputStream();
-            fos = new FileOutputStream(this.file);
+            fos = new FileOutputStream(this.home + "/Downloads/" + this.file);
             bos = new BufferedOutputStream(fos);
             int bytesRead = is.read(mybytearray, 0, mybytearray.length);
             int current = bytesRead;
@@ -69,6 +76,27 @@ public class HiloR extends Thread {
             if (fos != null) fos.close();
             if (bos != null) bos.close();
             if (socket != null) socket.close();
+        }
+    }
+
+    public void addDownload () {
+        JSONParser parser = new JSONParser();
+        try {
+            Object obj = parser.parse(new FileReader(home + "/Downloads"));
+            JSONObject jsonObject = (JSONObject) obj;
+            int cant = (int) jsonObject.get("cantdescargas");
+            cant ++;
+            jsonObject.put("cantdescargas", cant);
+            FileWriter file = new FileWriter("c:\\test.json");
+            file.write(jsonObject.toJSONString());
+            file.flush();
+            file.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 

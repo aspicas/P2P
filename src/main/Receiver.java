@@ -15,9 +15,7 @@ import java.nio.file.Files;
  * http://www.rgagnon.com/javadetails/java-0542.html
  */
 public class Receiver extends Thread{
-    public Socket socket = null;
-    public int idSession;
-    public String file;
+
 
 
     /**
@@ -25,12 +23,19 @@ public class Receiver extends Thread{
      * @param file
      */
     public Receiver(String ip, String file) {
-        this.file = file;
+
+    }
+
+    public void receiveNewFile (String ip, String file) {
         try {
-            this.socket = new Socket(ip, 3000);
-            ((HiloR) new HiloR(this.socket, file)).start();
-        } catch (IOException ex) {
-            Logger.getLogger(HiloR.class.getName()).log(Level.SEVERE,null,ex);
+            Socket socket = new Socket(ip, 3000);
+            ((HiloR) new HiloR(socket, file)).start();
+        }
+        catch (IOException e) {
+            Logger.getLogger(HiloR.class.getName()).log(Level.SEVERE,null,e);
+        }
+        catch (Exception e) {
+
         }
     }
 
