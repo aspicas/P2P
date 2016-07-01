@@ -120,8 +120,8 @@ public class Hilo extends Thread {
                 System.out.println("se desconecto: " + Main.predecesor);
             }
             else {
-                System.out.println("esta es la respuesta " + respuesta);
-                output.writeUTF("respuesta: " + respuesta);
+                System.out.println("respuesta del cliente:  " + respuesta);
+                output.writeUTF("the big brother is whatching you");
             }
         }
         catch (IOException ex){

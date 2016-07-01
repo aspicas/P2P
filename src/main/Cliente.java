@@ -38,7 +38,7 @@ public class Cliente {
         try {
             output.writeUTF(msj);
             String respuesta = input.readUTF();
-            System.out.println("La respuesta es: " + respuesta);
+            System.out.println("Respuesta del server: " + respuesta);
             desconectar();
         }
         catch (IOException ex){
