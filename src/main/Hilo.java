@@ -73,16 +73,16 @@ public class Hilo extends Thread {
      * @param str
      * @return
      */
-    public List<String> definirAccion(String str){
+    public String[] definerAction(String str){
         StringTokenizer st = new StringTokenizer(str, " ");
         // itera mediante el “objeto st” para obtener más tokens de él
-        String[] token = new String[st.countTokens()];
+        String[] token = new String[2];
         int i = 0;
         while (st.hasMoreElements()) {
             token[i] = st.nextElement().toString();
             i++;
         }
-        return Arrays.asList(token);
+        return token;
     }
 
     /**
@@ -111,17 +111,17 @@ public class Hilo extends Thread {
      */
     @Override
     public void run(){
-        String accion = "";
-        List<String> sp = definirAccion(accion);
         try {
-            accion = input.readUTF();
-            //System.out.println("La accion es: "+accion);
-            output.writeUTF("He leido tu accion");
-            List<String> comando = definirAccion(accion);
-            System.out.println(comando.get(0) + comando.get(1));
-
-            for (String i: sp) {
-                System.out.println("hilo: "+i);
+            String respuesta = input.readUTF();
+            String[] comando = definerAction(respuesta);
+            if (comando[0].equals("desconectar")) {
+                Main.predecesor = comando[1];
+                output.writeUTF("desconectar");
+                System.out.println("se desconecto: " + Main.predecesor);
+            }
+            else {
+                System.out.println("esta es la respuesta " + respuesta);
+                output.writeUTF("respuesta: " + respuesta);
             }
         }
         catch (IOException ex){
