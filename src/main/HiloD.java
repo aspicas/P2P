@@ -15,8 +15,10 @@ public class HiloD extends Thread {
     public DataInputStream input;
     public DataOutputStream output;
     public String file;
+    public String home;
 
     public HiloD (Socket socket) {
+        this.home = System.getProperty("user.home");
         this.socket = socket;
         try {
             input = new DataInputStream(socket.getInputStream());
@@ -47,7 +49,7 @@ public class HiloD extends Thread {
         };
 
         try {
-            File myFile = new File(file);
+            File myFile = new File(home+file);
             byte[] mybytearray = new byte[(int) myFile.length()];
             fis = new FileInputStream(myFile);
             bis = new BufferedInputStream(fis);
