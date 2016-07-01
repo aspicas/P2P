@@ -51,7 +51,8 @@ public class HiloR extends Thread {
         catch (IOException ex){
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+        }
+
 
     public void receiveFile () throws IOException {
         BufferedOutputStream bos = null;
@@ -82,12 +83,12 @@ public class HiloR extends Thread {
     public void addDownload () {
         JSONParser parser = new JSONParser();
         try {
-            Object obj = parser.parse(new FileReader(home + "/Downloads"));
+            Object obj = parser.parse(new FileReader(home + "/Downloads/p2p.json"));
             JSONObject jsonObject = (JSONObject) obj;
             int cant = (int) jsonObject.get("cantdescargas");
             cant ++;
             jsonObject.put("cantdescargas", cant);
-            FileWriter file = new FileWriter("c:\\test.json");
+            FileWriter file = new FileWriter(home + "/Downloads/p2p.json");
             file.write(jsonObject.toJSONString());
             file.flush();
             file.close();

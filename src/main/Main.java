@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -32,7 +33,7 @@ public class Main {
         /* Buscar el archivo de estadisticas*/
         try {
 
-            Object obj = parser.parse(new FileReader(home + "/Downloads"));
+            Object obj = parser.parse(new FileReader(home + "/Downloads/p2p.json"));
             JSONObject jsonObject = (JSONObject) obj;
 
         } catch (FileNotFoundException e) {
@@ -41,7 +42,7 @@ public class Main {
             obj.put("cantdescargas", new Integer (0));
             JSONArray list = new JSONArray();
             obj.put("descargas", list);
-            FileWriter file = new FileWriter(home + "/Downloads");
+            FileWriter file = new FileWriter(home + "/Downloads/p2p.json");
             file.write(obj.toJSONString());
             file.flush();
             file.close();
