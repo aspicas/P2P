@@ -16,13 +16,7 @@ import java.nio.file.Files;
  */
 public class Receiver extends Thread{
 
-
-
-    /**
-     * Constructor de la clase
-     * @param file
-     */
-    public Receiver(String ip, String file) {
+    public Receiver() {
 
     }
 

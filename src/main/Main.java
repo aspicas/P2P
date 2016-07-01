@@ -78,15 +78,16 @@ public class Main {
         String line = "a";
         Scanner scanner = new Scanner(System.in);
         System.out.println(user.getThreeOctet(user.getAddress()) + predecesor);
+        Estadistica(parser, home);
         do {
             Cliente cliente = new Cliente(user.getThreeOctet(user.getAddress()) + predecesor);
-            line = scanner.nextLine().toUpperCase();
-            cliente.Send(line);
-            System.out.println(line);
+            /*line = scanner.nextLine().toUpperCase();
+            cliente.Send(line);*/
+//            System.out.println(line);
             while (command.toUpperCase() != "SALIR") {
-                System.out.println("Ingrese el comando");
-                command = scanner.next();
-                List<String> items = Arrays.asList(command.split("\\s*"));
+                System.out.print("$ ");
+                command = scanner.nextLine();
+                List<String> items = Arrays.asList(command.split(" "));
                 switch (items.get(0).toUpperCase()) {
                     case ("RECURSOS_OFRECIDOS"):
                         System.out.println("Los recursos ofrecidos son: ");
@@ -94,17 +95,21 @@ public class Main {
                         utility.listFilesForFolder(directory);
                         break;
                     case ("BUSCAR_RECURSO"):
+                        Receiver receiver = new Receiver();
+                        receiver.receiveNewFile(user.getThreeOctet(user.getAddress()) + predecesor,
+                                items.get(1));
+                        System.out.println("Se ha iniciado la descarga.");
                         break;
                     case ("ESTADO_SOLICITUDES"):
                         break;
                     case ("ESTADO_RESPUESTAS"):
                         break;
                     case ("NUM_DESCARGAS"):
-                        int cant = -1;
+                        Long cant = new Long(-1);
                         try {
                             Object obj = parser.parse(new FileReader(home + "/Downloads/p2p.json"));
                             JSONObject jsonObject = (JSONObject) obj;
-                            cant = (int) jsonObject.get("cantdescargas");
+                            cant = (Long) jsonObject.get("cantdescargas");
                         } catch (FileNotFoundException e) {
                             System.out.println("No existe el archivo de control.");
                             e.printStackTrace();
@@ -115,14 +120,17 @@ public class Main {
                             System.out.println("Ha ocurrido un error");
                             e.printStackTrace();
                         }
-                        if ( cant != -1) System.out.println("Hasta la fecha se han descargado " + cant + "archivos.");
+                        if ( cant != -1) System.out.println("Hasta la fecha se han descargado " + cant + " archivos.");
+                        break;
+                    case ("SALIR"):
+                        System.exit(0);
+                    default:
+                        System.out.println("Comando invalido. Intentelo de nuevo.");
                         break;
                 }
             }
         } while (!line.equals("EXIT"));/**/
         Cliente cliente = new Cliente(user.getThreeOctet(user.getAddress()) + predecesor);
         cliente.definePredecesor("desconectar " + predecesor);
-
-        Estadistica(parser, home);
     }
 }

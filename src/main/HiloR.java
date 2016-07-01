@@ -22,6 +22,7 @@ public class HiloR extends Thread {
     public HiloR (Socket socket, String file)
     {
         this.home = System.getProperty("user.home");
+        System.out.println("Se creo el hilo de recepcion");
         this.file = file;
         this.socket = socket;
         try {
@@ -44,6 +45,7 @@ public class HiloR extends Thread {
 
     public void requestFile(String file){
         try {
+            System.out.println("Se solicita el archivo: " + file);
             output.writeUTF(file);
             receiveFile();
             addDownload();
@@ -57,6 +59,7 @@ public class HiloR extends Thread {
     public void receiveFile () throws IOException {
         BufferedOutputStream bos = null;
         FileOutputStream fos = null;
+        System.out.println("Se comienza a recibir el archivo");
         try {
             byte[] mybytearray = new byte[1024];
             InputStream is = socket.getInputStream();
@@ -82,6 +85,7 @@ public class HiloR extends Thread {
 
     public void addDownload () {
         JSONParser parser = new JSONParser();
+        System.out.println("Se actualiza la estadistica de descargas.");
         try {
             Object obj = parser.parse(new FileReader(home + "/Downloads/p2p.json"));
             JSONObject jsonObject = (JSONObject) obj;
@@ -90,6 +94,7 @@ public class HiloR extends Thread {
             jsonObject.put("cantdescargas", cant);
             FileWriter file = new FileWriter(home + "/Downloads/p2p.json");
             file.write(jsonObject.toJSONString());
+            System.out.println("Se actualizo el archivo");
             file.flush();
             file.close();
         } catch (FileNotFoundException e) {
@@ -103,6 +108,7 @@ public class HiloR extends Thread {
 
     @Override
     public void run(){
+        System.out.println("Comienza a correr el hilo");
         requestFile(file);
         desconectar();
     }
