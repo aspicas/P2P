@@ -65,17 +65,14 @@ public class Hilo extends Thread{
                 Main.ultConect = comando[1];
                System.out.println(Main.ultConect);
             }
-            if (comando[0].equals("desconexion")) {
+            if (comando[0].equals("desconectar")) {
                 Main.ultConect = comando[1];
                 output.writeUTF("desconectar");
-                System.out.println("se desconecto");
+                System.out.println("se desconecto: " + Main.ultConect);
             }
             else {
-                while (!respuesta.isEmpty()){
-                    System.out.println("esta es la respuesta " + respuesta);
-                    output.writeUTF("Hola David");
-                    respuesta = input.readUTF();
-                }
+                System.out.println("esta es la respuesta " + respuesta);
+                output.writeUTF("Hola David");
             }
         }
         catch (IOException ex){
