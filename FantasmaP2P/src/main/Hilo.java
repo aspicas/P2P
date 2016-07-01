@@ -57,17 +57,26 @@ public class Hilo extends Thread{
             if (comando[0].equals("PREDECESOR") && Main.ultConect.equals("cero")){
                 output.writeUTF("PREDECESOR " + Servidor.address);
                 Main.ultConect = comando[1];
-                output.writeUTF("listo");
+                System.out.println(Main.ultConect);
             }
             //Para los otros nodos
             else if (comando[0].equals("PREDECESOR") && !Main.ultConect.equals(comando[1])) {
                 output.writeUTF("PREDECESOR " + Main.ultConect);
                 Main.ultConect = comando[1];
-                output.writeUTF("listo");
+               System.out.println(Main.ultConect);
+            }
+            if (comando[0].equals("desconectar")) {
+                Main.ultConect = comando[1];
+                output.writeUTF("desconectar");
+                System.out.println("se desconecto: " + Main.ultConect);
+            }
+            else {
+                System.out.println("esta es la respuesta " + respuesta);
+                output.writeUTF("Hola David");
             }
         }
         catch (IOException ex){
-            Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE,null,ex);
+            //Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE,null,ex);
         }
     }
 }

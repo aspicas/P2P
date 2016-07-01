@@ -25,7 +25,7 @@ public class Main {
         JSONParser parser = new JSONParser();
         String home = System.getProperty("user.home");
         //Inicio del Servidor
-        /*SERVIDOR*//*
+        /*SERVIDOR*/
         Servidor serv = new Servidor();
         serv.start();/**/
 
@@ -53,12 +53,12 @@ public class Main {
 
         //Inicio del Cliente
         /* CLIENTE*/
-        Cliente client = new Cliente("192.168.1.103");
+        Cliente client = new Cliente("192.168.1.100");
         Usuario user = new Usuario();
         user.findIP();
         client.definePredecesor("PREDECESOR "+user.getLastOctet(user.getAddress()));
-        System.out.println("Termino el cliente");
-        System.out.println(predecesor);
+        client.desconectar();
+        System.out.println("predecesor: " + predecesor);
         /**/
 
 
@@ -68,12 +68,15 @@ public class Main {
 
 
         /* CLIENTE*/
-        /*String line = "exit";
+        String line = "a";
         Scanner sc = new Scanner(System.in);
         do {
+            Cliente cliente = new Cliente(user.getThreeOctet(user.getAddress()) + predecesor);
             line = sc.nextLine().toUpperCase();
-            client.Send(line);
+            cliente.Send(line);
             System.out.println(line);
         } while (!line.equals("EXIT"));/**/
+        Cliente cliente = new Cliente(user.getThreeOctet(user.getAddress()) + predecesor);
+        cliente.definePredecesor("desconectar " + predecesor);/**/
     }
 }
