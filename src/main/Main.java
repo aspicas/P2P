@@ -76,75 +76,53 @@ public class Main {
 
         /* CLIENTE*/
         String line = "a";
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         System.out.println(user.getThreeOctet(user.getAddress()) + predecesor);
         do {
             Cliente cliente = new Cliente(user.getThreeOctet(user.getAddress()) + predecesor);
-            line = sc.nextLine().toUpperCase();
+            line = scanner.nextLine().toUpperCase();
             cliente.Send(line);
             System.out.println(line);
+            while (command.toUpperCase() != "SALIR") {
+                System.out.println("Ingrese el comando");
+                command = scanner.next();
+                List<String> items = Arrays.asList(command.split("\\s*"));
+                switch (items.get(0).toUpperCase()) {
+                    case ("RECURSOS_OFRECIDOS"):
+                        System.out.println("Los recursos ofrecidos son: ");
+                        File directory = new File(home + "/Downloads");
+                        utility.listFilesForFolder(directory);
+                        break;
+                    case ("BUSCAR_RECURSO"):
+                        break;
+                    case ("ESTADO_SOLICITUDES"):
+                        break;
+                    case ("ESTADO_RESPUESTAS"):
+                        break;
+                    case ("NUM_DESCARGAS"):
+                        int cant = -1;
+                        try {
+                            Object obj = parser.parse(new FileReader(home + "/Downloads/p2p.json"));
+                            JSONObject jsonObject = (JSONObject) obj;
+                            cant = (int) jsonObject.get("cantdescargas");
+                        } catch (FileNotFoundException e) {
+                            System.out.println("No existe el archivo de control.");
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            System.out.println("No se puede acceder al archivo de control.");
+                            e.printStackTrace();
+                        } catch (ParseException e) {
+                            System.out.println("Ha ocurrido un error");
+                            e.printStackTrace();
+                        }
+                        if ( cant != -1) System.out.println("Hasta la fecha se han descargado " + cant + "archivos.");
+                        break;
+                }
+            }
         } while (!line.equals("EXIT"));/**/
         Cliente cliente = new Cliente(user.getThreeOctet(user.getAddress()) + predecesor);
         cliente.definePredecesor("desconectar " + predecesor);
 
-        /* Buscar el archivo de estadisticas*/
-        try {
-
-            Object obj = parser.parse(new FileReader(home + "/Downloads/p2p.json"));
-            JSONObject jsonObject = (JSONObject) obj;
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            JSONObject obj = new JSONObject();
-            obj.put("cantdescargas", new Integer (0));
-            JSONArray list = new JSONArray();
-            obj.put("descargas", list);
-            FileWriter file = new FileWriter(home + "/Downloads/p2p.json");
-            file.write(obj.toJSONString());
-            file.flush();
-            file.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Scanner scanner = new Scanner(System.in);
-        while (command.toUpperCase() != "SALIR") {
-            System.out.println("Ingrese el comando");
-            command = scanner.next();
-            List<String> items = Arrays.asList(command.split("\\s*"));
-            switch (items.get(0).toUpperCase()) {
-                case ("RECURSOS_OFRECIDOS"):
-                    System.out.println("Los recursos ofrecidos son: ");
-                    File directory = new File(home + "/Downloads");
-                    utility.listFilesForFolder(directory);
-                    break;
-                case ("BUSCAR_RECURSO"):
-                    break;
-                case ("ESTADO_SOLICITUDES"):
-                    break;
-                case ("ESTADO_RESPUESTAS"):
-                    break;
-                case ("NUM_DESCARGAS"):
-                    int cant = -1;
-                    try {
-                        Object obj = parser.parse(new FileReader(home + "/Downloads/p2p.json"));
-                        JSONObject jsonObject = (JSONObject) obj;
-                        cant = (int) jsonObject.get("cantdescargas");
-                    } catch (FileNotFoundException e) {
-                        System.out.println("No existe el archivo de control.");
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        System.out.println("No se puede acceder al archivo de control.");
-                        e.printStackTrace();
-                    } catch (ParseException e) {
-                        System.out.println("Ha ocurrido un error");
-                        e.printStackTrace();
-                    }
-                    if ( cant != -1) System.out.println("Hasta la fecha se han descargado " + cant + "archivos.");
-                    break;
-            }
-        }
+        Estadistica(parser, home);
     }
 }

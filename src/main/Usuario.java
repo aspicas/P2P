@@ -36,7 +36,7 @@ public class Usuario {
             {
                 InetAddress addr = a.nextElement();
                 String address2 = addr.getHostAddress();
-                if (getThreeOctet(address2).equals("192.168.1.")){
+                if (getThreeOctet(address2).equals("192.168.43.")){
                     address = addr.getHostAddress();
                     System.out.println(address);
                 }
