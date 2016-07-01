@@ -49,7 +49,7 @@ public class HiloD extends Thread {
         };
 
         try {
-            File myFile = new File(home+file);
+            File myFile = new File(home + "/Downloads/" +file);
             byte[] mybytearray = new byte[(int) myFile.length()];
             fis = new FileInputStream(myFile);
             bis = new BufferedInputStream(fis);
