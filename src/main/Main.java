@@ -28,6 +28,12 @@ public class Main {
         System.out.println("predecesor: " + predecesor);
         /**/
 
+
+        /*SENDER*/
+        Sender sender = new Sender();
+        sender.start();
+
+
         /* CLIENTE*/
         Cliente cliente = new Cliente(user.getThreeOctet(user.getAddress()) + predecesor);
         String line = "a";
