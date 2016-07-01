@@ -22,13 +22,12 @@ public class Usuario {
     public void findIP() throws IOException {
         Enumeration<NetworkInterface> n = NetworkInterface.getNetworkInterfaces(); //Encuentra interfaz
 
-        /**/NetworkInterface e = n.nextElement(); // la separa de la numeracion y la coloca aparte.
+        /*NetworkInterface e = n.nextElement(); // la separa de la numeracion y la coloca aparte.
         Enumeration<InetAddress> a = e.getInetAddresses(); //Encuentra la MAC
         InetAddress addr = a.nextElement(); // la separa de la numeracion y la coloca aparte.
         addr = a.nextElement(); //Seguido de la MAC esta la IP
         address = addr.getHostAddress();//*/
-
-        /*
+        /**/
         for (; n.hasMoreElements();)
         {
             NetworkInterface e = n.nextElement();
@@ -36,7 +35,12 @@ public class Usuario {
             for (; a.hasMoreElements();)
             {
                 InetAddress addr = a.nextElement();
-                System.out.println("  " + addr.getHostAddress());
+                String address2 = addr.getHostAddress();
+                if (getThreeOctet(address2).equals("192.168.1.")){
+                    address = addr.getHostAddress();
+                    System.out.println(address);
+                }
+                //System.out.println("  " + getThreeOctet(address2));
             }
         }//*/
     }

@@ -4,13 +4,13 @@ package main;
  * Created by david on 5/19/16.
  * https://www.programarya.com/Cursos/Java-Avanzado/Sockets
  */
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,6 +20,8 @@ import org.json.simple.parser.ParseException;
 public class Main {
 
     public static String predecesor = "cero";
+    public static String command = "";
+    public static Utils utility = new Utils();
 
     public static void main (String[] args) throws IOException
     {
@@ -36,9 +38,11 @@ public class Main {
         Cliente client = new Cliente("192.168.1.100");
         Usuario user = new Usuario();
         user.findIP();
+        System.out.println(user.address);
         client.definePredecesor("PREDECESOR "+user.getLastOctet(user.getAddress()));
         client.desconectar();
         System.out.println("predecesor: " + predecesor);
+
         /**/
 
 
@@ -50,6 +54,7 @@ public class Main {
         /* CLIENTE*/
         String line = "a";
         Scanner sc = new Scanner(System.in);
+        System.out.println(user.getThreeOctet(user.getAddress()) + predecesor);
         do {
             Cliente cliente = new Cliente(user.getThreeOctet(user.getAddress()) + predecesor);
             line = sc.nextLine().toUpperCase();
@@ -79,6 +84,44 @@ public class Main {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        while (command.toUpperCase() != "SALIR") {
+            System.out.println("Ingrese el comando");
+            command = scanner.next();
+            List<String> items = Arrays.asList(command.split("\\s*"));
+            switch (items.get(0).toUpperCase()) {
+                case ("RECURSOS_OFRECIDOS"):
+                    System.out.println("Los recursos ofrecidos son: ");
+                    File directory = new File(home + "/Downloads");
+                    utility.listFilesForFolder(directory);
+                    break;
+                case ("BUSCAR_RECURSO"):
+                    break;
+                case ("ESTADO_SOLICITUDES"):
+                    break;
+                case ("ESTADO_RESPUESTAS"):
+                    break;
+                case ("NUM_DESCARGAS"):
+                    int cant = -1;
+                    try {
+                        Object obj = parser.parse(new FileReader(home + "/Downloads/p2p.json"));
+                        JSONObject jsonObject = (JSONObject) obj;
+                        cant = (int) jsonObject.get("cantdescargas");
+                    } catch (FileNotFoundException e) {
+                        System.out.println("No existe el archivo de control.");
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        System.out.println("No se puede acceder al archivo de control.");
+                        e.printStackTrace();
+                    } catch (ParseException e) {
+                        System.out.println("Ha ocurrido un error");
+                        e.printStackTrace();
+                    }
+                    if ( cant != -1) System.out.println("Hasta la fecha se han descargado " + cant + "archivos.");
+                    break;
+            }
         }
     }
 }
