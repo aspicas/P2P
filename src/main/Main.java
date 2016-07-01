@@ -28,6 +28,12 @@ public class Main {
         System.out.println(predecesor);
         /**/
 
+
+        /*SENDER*/
+        Sender sender = new Sender();
+        sender.start();
+
+
         /* CLIENTE*/
         /*String line = "exit";
         Scanner sc = new Scanner(System.in);

@@ -32,7 +32,7 @@ public class Usuario {
         NetworkInterface e = n.nextElement(); // la separa de la numeracion y la coloca aparte.
         Enumeration<InetAddress> a = e.getInetAddresses(); //Encuentra la MAC
         InetAddress addr = a.nextElement(); // la separa de la numeracion y la coloca aparte.
-        addr = a.nextElement(); //Seguido de la MAC esta la IP
+        if (a.hasMoreElements()) addr = a.nextElement(); //Seguido de la MAC esta la IP
         address = addr.getHostAddress();//*/
 
         /*
