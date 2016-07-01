@@ -119,20 +119,6 @@ public class Hilo extends Thread {
             output.writeUTF("He leido tu accion");
             List<String> comando = definirAccion(accion);
             System.out.println(comando.get(0) + comando.get(1));
-            switch (comando.get(0).toUpperCase()) {
-                case "BUSCAR_RECURSO":
-                    break;
-                case "ESTADO_SOLICITUDES":
-                    break;
-                case "RECURSOS_OFRECIDOS":
-                    File directory = new File(this.path);
-                    listFilesForFolder(directory);
-                    break;
-                case "ESTADO_RESPUESTAS":
-                    break;
-                case "NUM_DESCARGAS":
-                    break;
-            }
 
             for (String i: sp) {
                 System.out.println("hilo: "+i);
