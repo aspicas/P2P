@@ -20,7 +20,7 @@ public class Main {
 
         //Inicio del Cliente
         /* CLIENTE*/
-        Cliente client = new Cliente("192.168.1.103");
+        Cliente client = new Cliente("192.168.1.100");
         Usuario user = new Usuario();
         user.findIP();
         client.definePredecesor("PREDECESOR "+user.getLastOctet(user.getAddress()));
@@ -35,14 +35,15 @@ public class Main {
 
 
         /* CLIENTE*/
-        Cliente cliente = new Cliente(user.getThreeOctet(user.getAddress()) + predecesor);
         String line = "a";
         Scanner sc = new Scanner(System.in);
         do {
+            Cliente cliente = new Cliente(user.getThreeOctet(user.getAddress()) + predecesor);
             line = sc.nextLine().toUpperCase();
             cliente.Send(line);
             System.out.println(line);
-        } while (!line.equals("EXIT"));
-        //client.definePredecesor("desconexion " + predecesor);/**/
+        } while (!line.equals("EXIT"));/**/
+        Cliente cliente = new Cliente(user.getThreeOctet(user.getAddress()) + predecesor);
+        cliente.definePredecesor("desconectar " + predecesor);/**/
     }
 }

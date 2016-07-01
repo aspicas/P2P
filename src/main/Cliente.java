@@ -36,11 +36,10 @@ public class Cliente {
      */
     public void Send(String msj){
         try {
-            System.out.println("ENTRO");
             output.writeUTF(msj);
-            System.out.println("ENVIO");
             String respuesta = input.readUTF();
             System.out.println("La respuesta es: " + respuesta);
+            desconectar();
         }
         catch (IOException ex){
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -87,10 +86,11 @@ public class Cliente {
             String[] comando = definerAction(respuesta);
             if (comando[0].equals("PREDECESOR")){
                 Main.predecesor = comando[1];
-                System.out.println("predecesor");
+                //System.out.println("predecesor");
             }
             else if (comando[0].equals("desconectar")) {
                 System.out.println("salida");
+                desconectar();
             }
         }
         catch (Exception ex){
