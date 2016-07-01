@@ -14,7 +14,7 @@ public class Main {
     public static void main (String[] args) throws IOException
     {
         //Inicio del Servidor
-        /*SERVIDOR*//*
+        /*SERVIDOR*/
         Servidor serv = new Servidor();
         serv.start();/**/
 
@@ -24,17 +24,19 @@ public class Main {
         Usuario user = new Usuario();
         user.findIP();
         client.definePredecesor("PREDECESOR "+user.getLastOctet(user.getAddress()));
-        System.out.println("Termino el cliente");
-        System.out.println(predecesor);
+        client.desconectar();
+        System.out.println("predecesor: " + predecesor);
         /**/
 
         /* CLIENTE*/
-        /*String line = "exit";
+        Cliente cliente = new Cliente(user.getThreeOctet(user.getAddress()) + predecesor);
+        String line = "a";
         Scanner sc = new Scanner(System.in);
         do {
             line = sc.nextLine().toUpperCase();
-            client.Send(line);
+            cliente.Send(line);
             System.out.println(line);
-        } while (!line.equals("EXIT"));/**/
+        } while (!line.equals("EXIT"));
+        //client.definePredecesor("desconexion " + predecesor);/**/
     }
 }
